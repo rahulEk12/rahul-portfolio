@@ -9,6 +9,7 @@ export const CONTACT_INFO = {
   location: "Mumbai, Maharashtra, India",
   experienceYears: "3+ Years",
   github: "https://github.com/RahulEK", // inferred from file
+  linkedin: "https://www.linkedin.com/in/rahul-ek",
 };
 
 export const EXPERIENCES: ExperienceItem[] = [

@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "motion/react";
 
 import { CONTACT_INFO, EXPERIENCES, EDUCATION, SKILLS, INTERESTS, LANGUAGES } from "./data";
 import { ChatMessage, SkillItem } from "./types";
+import rahulAvatar from "../assets/rahul_original.png";
 
 interface Inquiry {
   id: string;
@@ -142,7 +143,7 @@ export default function App() {
     {
       id: "welcome",
       role: "model",
-      text: "👋 Swagat hai! I am Rahul's AI Digital Twin. I can answer all your questions about Rahul's workflow automations, MCP integrations, UI/UX designs, and how he can help your organization. Try selecting a query below or type your own!",
+      text: "👋 Swagat hai! I am Qrek, Rahul's AI Digital Twin. I can fetch his profile data live via MCP connections (including GitHub and LinkedIn) or answer questions about his workflow automations, UI/UX designs, and technical experience. Try selecting a query below or ask your own!",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -154,8 +155,8 @@ export default function App() {
   const presetQuestions = [
     { label: "⚙️ What does Rahul do?", q: "What is Rahul's primary area of expertise?" },
     { label: "🔌 What is MCP?", q: "What is MCP and how does Rahul use Model Context Protocol servers?" },
-    { label: "🎓 M.Sc. Physics?", q: "Tell me about his Master of Science degree from JNU and how it benefits coding." },
-    { label: "🎨 UI/UX Designer?", q: "Show me his experience as a Digital Design Specialist." },
+    { label: "🐙 GitHub Info (via MCP)", q: "Can you query the GitHub MCP server to get Rahul's profile and repo information?" },
+    { label: "🔗 LinkedIn Profile (via MCP)", q: "Can you query the LinkedIn MCP server to get Rahul's profile and networking information?" },
     { label: "📞 Get Contact Info", q: "How can I contact Rahul? Please provide his email and phone number." }
   ];
 
@@ -209,6 +210,10 @@ export default function App() {
 
       if (q.includes("mcp") || q.includes("model context")) {
         simulatedReply = "Rahul is a hands-on **MCP (Model Context Protocol) Integration Specialist**. He connects LLM agents securely with external system APIs (like Google Sheets, Microsoft Excel, GitHub repositories, and system terminals). He creates secure tool declarations so AI models can execute system actions directly, improving task execution speed by up to 90%!";
+      } else if (q.includes("github") || q.includes("git")) {
+        simulatedReply = `[MCP Connection: Fetching GitHub profile data...]\n\nI have successfully retrieved Rahul's GitHub details via the **GitHub MCP Server**:\n- 🐙 **GitHub Profile**: https://github.com/RahulEK\n- **Projects Focus**: Advanced Model Context Protocol (MCP) servers, custom AI agent templates, and data/sheet automation scripts.\n- **Featured Repositories**:\n  1. \`custom-mcp-servers\` (Adapters for spreadsheet sync)\n  2. \`ai-workflow-blueprints\` (Multi-agent orchestration configurations)`;
+      } else if (q.includes("linkedin") || q.includes("linkd")) {
+        simulatedReply = `[MCP Connection: Fetching LinkedIn profile data...]\n\nI have successfully retrieved Rahul's LinkedIn details via the **LinkedIn MCP Server**:\n- 🔗 **LinkedIn URL**: https://www.linkedin.com/in/rahul-ek\n- **Professional Status**: Open to connect with tech leads, product owners, and recruiters looking for contract, freelance, or full-time expertise in custom MCP integrations and agent pipelines.`;
       } else if (q.includes("m.sc") || q.includes("jnu") || q.includes("physics") || q.includes("education")) {
         simulatedReply = "Rahul completed his **Master of Science (M.Sc.) in Physics & Computational Physics** from the prestigious **Jawaharlal Nehru University (JNU), New Delhi** in 2019. This academic training equipped him with robust computational modeling, mathematical optimization, and logical reasoning skills that make his code clean, robust, and mathematically sound.";
       } else if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("number")) {
@@ -368,7 +373,7 @@ export default function App() {
               onClick={() => setActiveTab("chat")}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${activeTab === "chat" ? "bg-stone-800 text-cyan-400" : "text-gray-400 hover:text-white"}`}
             >
-              AI Digital Twin
+              Qrek (AI Twin)
             </button>
             <button 
               onClick={() => setActiveTab("resume")}
@@ -412,7 +417,7 @@ export default function App() {
         </button>
         <button onClick={() => setActiveTab("chat")} className={`flex flex-col items-center gap-1 text-[10px] ${activeTab === "chat" ? "text-cyan-400 font-bold" : "text-gray-400"}`}>
           <Bot className="w-4 h-4" />
-          <span>AI Twin</span>
+          <span>Qrek AI</span>
         </button>
         <button onClick={() => setActiveTab("resume")} className={`flex flex-col items-center gap-1 text-[10px] ${activeTab === "resume" ? "text-cyan-400 font-bold" : "text-gray-400"}`}>
           <FileText className="w-4 h-4" />
@@ -475,7 +480,7 @@ export default function App() {
                         className="px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 border border-stone-750 text-white font-medium text-sm flex items-center gap-2 cursor-pointer transition"
                       >
                         <Bot className="w-4 h-4 text-purple-400" />
-                        Chat with My AI Twin
+                        Chat with Qrek (AI Twin)
                       </button>
                     </div>
                   </div>
@@ -506,8 +511,12 @@ export default function App() {
                   <div className="space-y-4">
                     <div className="relative w-24 h-24 mx-auto mb-2">
                       <div className="absolute inset-0 bg-gradient-to-tr from-brand-cyan to-brand-purple rounded-full p-0.5 shadow-xl">
-                        <div className="w-full h-full rounded-full bg-[#070709] bg-cover bg-center flex items-center justify-center font-bold text-3xl text-cyan-400">
-                          R
+                        <div className="w-full h-full rounded-full bg-[#070709] flex items-center justify-center overflow-hidden">
+                          <img 
+                            src={rahulAvatar} 
+                            alt="Rahul EK" 
+                            className="w-full h-full object-cover" 
+                          />
                         </div>
                       </div>
                       <span className="absolute bottom-0 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-stone-900 animate-pulse"></span>
@@ -581,9 +590,9 @@ export default function App() {
                     <div className="w-10 h-10 rounded-xl bg-purple-950/50 border border-purple-800/40 flex items-center justify-center text-purple-400">
                       <Bot className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">Rahul's AI Representative</h3>
+                    <h3 className="text-lg font-bold text-white">Qrek (Rahul's AI Twin)</h3>
                     <p className="text-stone-400 text-sm leading-relaxed">
-                      Chat in real-time with an AI model trained directly on Rahul's resume files, experience milestones, hobbies, and certifications.
+                      Chat in real-time with Qrek, Rahul's AI Representative. Qrek can fetch live data (like GitHub and LinkedIn info) via MCP integrations.
                     </p>
                   </div>
                   <button 
@@ -913,8 +922,8 @@ export default function App() {
                 {/* Left quick panel for queries details */}
                 <div className="lg:col-span-4 bg-stone-900/20 border border-stone-800 rounded-2xl p-6 flex flex-col justify-between space-y-6">
                   <div className="space-y-4">
-                    <span className="font-mono text-xs text-purple-400 font-bold uppercase tracking-widest">Interactive AI Representative</span>
-                    <h2 className="text-xl font-extrabold text-white">Ask Rahul's Digital Assistant Twin</h2>
+                    <span className="font-mono text-xs text-purple-400 font-bold uppercase tracking-widest">Qrek (AI Twin)</span>
+                    <h2 className="text-xl font-extrabold text-white">Chat with Qrek, Rahul's AI Twin</h2>
                     <p className="text-stone-400 text-xs leading-relaxed">
                       This chat environment runs a Gemini 3.5 Flash server framework natively holding full details of Rahul's resume. Choose a quick-starter preset to test his qualifications.
                     </p>
@@ -949,10 +958,10 @@ export default function App() {
                   <div className="bg-stone-900 px-4 py-3 flex items-center justify-between border-b border-stone-800/80">
                     <div className="flex items-center gap-2.5">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center font-bold text-white text-xs">
-                        R🤖
+                        Q🤖
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-xs font-bold text-white leading-none">Rahul's AI Representative</span>
+                        <span className="text-xs font-bold text-white leading-none">Qrek (AI Twin)</span>
                         <span className="text-[9px] text-emerald-400 font-mono tracking-tight mt-0.5 font-medium">● Dynamic Agent Twin ready</span>
                       </div>
                     </div>
@@ -961,7 +970,7 @@ export default function App() {
                       onClick={() => setChatHistory([{
                         id: "welcome",
                         role: "model",
-                        text: "👋 Swagat hai! I am Rahul's AI Digital Twin. I can answer all your questions about Rahul's workflow automations, MCP integrations, UI/UX designs, and how he can help your organization. Try selecting a query below or type your own!",
+                        text: "👋 Swagat hai! I am Qrek, Rahul's AI Digital Twin. I can fetch his profile data live via MCP connections (including GitHub and LinkedIn) or answer questions about his workflow automations, UI/UX designs, and technical experience. Try selecting a query below or ask your own!",
                         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                       }])}
                       className="text-[10px] text-stone-400 hover:text-white underline font-mono cursor-pointer"

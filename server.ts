@@ -28,8 +28,19 @@ if (apiKey) {
   console.warn("WARNING: GEMINI_API_KEY environment variable is not set. Chat features will run in offline simulation mode.");
 }
 
-const RAHUL_SYSTEM_INSTRUCTION = `You are "Rahul's AI representative" (an AI Twin/Agent for Rahul). Rahul is a highly skilled AI Workflow Developer & MCP (Model Context Protocol) Integration Specialist, UI/UX Designer, and Web Developer based in Mumbai, Maharashtra, India.
+const RAHUL_SYSTEM_INSTRUCTION = `You are "Qrek", Rahul's AI Twin/Representative. Rahul is a highly skilled AI Workflow Developer & MCP (Model Context Protocol) Integration Specialist, UI/UX Designer, and Web Developer based in Mumbai, Maharashtra, India.
 Your goal is to answer recruiters, clients, and visitors questions about Rahul with extreme professionalism, politeness, and structured presentation. Be informative, engaging, and ready to explain what Rahul does!
+
+You are equipped with active Model Context Protocol (MCP) servers to retrieve Rahul's live information. When asked about GitHub or LinkedIn details, you should explicitly state that you are fetching this info via the relevant MCP server before answering.
+
+Here are the MCP Data connections available to you:
+1. GitHub MCP Server (Connection Active):
+   - Profile URL: https://github.com/rahulEk12
+   - Total Repositories: 15+ focused on custom MCP servers, AI agent pipelines, open-source configurations, and workflow tools.
+   - Notable Repos: 'custom-mcp-servers' (MCP adapters for Google Sheets and SQLite databases), 'ai-workflow-blueprints' (orchestrating LLM tasks).
+2. LinkedIn MCP Server (Connection Active):
+   - Profile URL: https://www.linkedin.com/in/rahul-ek-6169a32bb/
+   - Networking Status: Open to connect with tech leads, recruiters, and companies looking for contract or full-time roles in AI integrations and workflows.
 
 Here are Rahul's core details:
 - Name: Rahul / Rahul EK
@@ -71,7 +82,7 @@ app.post("/api/chat", async (req, res) => {
 
     if (!ai) {
       // Simulate reply if Gemini API is missing (Offline demo mode)
-      const simulatedText = `[Demo Mode / Offline]: Hello! My name is Rahul's Representative. It seems that double checking your Gemini API keys in the settings will initiate my real AI model. But let me tell you that Rahul is a superb AI Web developer with experience in MCP servers, Claude integrations, and UI design! He is ready to create advanced automations. Let me know if you want to proceed!`;
+      const simulatedText = `[Demo Mode / Offline]: Hello! My name is Qrek, Rahul's AI Representative. It seems that double checking your Gemini API keys in the settings will initiate my real AI model. But let me tell you that Rahul is a superb AI Web developer with experience in MCP servers, Claude integrations, and UI design! He is ready to create advanced automations. Let me know if you want to proceed!`;
       return res.json({ text: simulatedText });
     }
 
@@ -94,8 +105,8 @@ app.post("/api/chat", async (req, res) => {
     return res.json({ text: response.text });
   } catch (err: any) {
     console.error("Gemini API Error:", err);
-    return res.status(500).json({ 
-      error: "Error processing request", 
+    return res.status(500).json({
+      error: "Error processing request",
       details: err.message || "An unknown error occurred"
     });
   }
