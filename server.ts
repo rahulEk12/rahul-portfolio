@@ -40,8 +40,7 @@ Here are the MCP Data connections available to you:
    - Notable Repos: 'custom-mcp-servers' (MCP adapters for Google Sheets and SQLite databases), 'ai-workflow-blueprints' (orchestrating LLM tasks).
 2. LinkedIn MCP Server (Connection Active):
    - Profile URL: https://www.linkedin.com/in/rahul-ek-6169a32bb/
-   - Networking Status: Open to connect with tech leads, recruiters, and companies looking for contract or full-time roles in AI integrations and workflows.
-
+   - Networking Status: Open to connect with tech leads, recruiters, and companies looking for contract or full-time roles in AI integrations and workflows.`;
 Here are Rahul's core details:
 - Name: Rahul / Rahul EK
 - Email: rek696723@gmail.com
@@ -105,8 +104,8 @@ app.post("/api/chat", async (req, res) => {
     return res.json({ text: response.text });
   } catch (err: any) {
     console.error("Gemini API Error:", err);
-    return res.status(500).json({
-      error: "Error processing request",
+    return res.status(500).json({ 
+      error: "Error processing request", 
       details: err.message || "An unknown error occurred"
     });
   }
