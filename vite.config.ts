@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/rahul-portfolio/',
+    base: '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
@@ -21,7 +21,7 @@ export default defineConfig(() => {
     },
     build: {
       outDir: 'dist',
-      // Ensure the build is SPA-friendly for GitHub Pages routing
+      // Ensure the build is SPA-friendly for routing
       rollupOptions: {
         input: '/index.html',
       },
