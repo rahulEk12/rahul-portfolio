@@ -153,6 +153,8 @@ export default function App() {
 
   // Quick preset questions
   const presetQuestions = [
+    { label: "🎓 Rahul's Last Education", q: "Rahul's last education" },
+    { label: "ℹ️ Tell me more about Rahul", q: "Tell me more about Rahul." },
     { label: "⚙️ What does Rahul do?", q: "What is Rahul's primary area of expertise?" },
     { label: "🔌 What is MCP?", q: "What is MCP and how does Rahul use Model Context Protocol servers?" },
     { label: "🐙 GitHub Info (via MCP)", q: "Can you query the GitHub MCP server to get Rahul's profile and repo information?" },
