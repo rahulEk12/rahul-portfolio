@@ -8,7 +8,8 @@ export const CONTACT_INFO = {
   phone: "+91 7752843401",
   location: "Mumbai, Maharashtra, India",
   experienceYears: "3+ Years",
-  github: "https://github.com/RahulEK", // inferred from file
+  github: "https://github.com/rahulEk12",
+  linkedin: "https://www.linkedin.com/in/rahul-ek",
 };
 
 export const EXPERIENCES: ExperienceItem[] = [

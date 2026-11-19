@@ -10,6 +10,23 @@ import { motion, AnimatePresence } from "motion/react";
 import { CONTACT_INFO, EXPERIENCES, EDUCATION, SKILLS, INTERESTS, LANGUAGES } from "./data";
 import { ChatMessage, SkillItem } from "./types";
 import rahulAvatar from "../assets/rahul_original.png";
+import { SpaceStationQrek } from "./components/SpaceStationQrek";
+import { WorldMapLocation } from "./components/WorldMapLocation";
+import { McpProtocolBackground } from "./components/McpProtocolBackground";
+import { AiTwinBackground } from "./components/AiTwinBackground";
+import { SkillsSnapshotBackground } from "./components/SkillsSnapshotBackground";
+import { getSkillRealLogo } from "./components/SkillLogos";
+import { 
+  ClaudeAgentLogo, 
+  Gpt4AgentLogo, 
+  GeminiAgentLogo, 
+  SheetsServerLogo, 
+  FigmaServerLogo, 
+  ExcelServerLogo, 
+  GithubServerLogo, 
+  SqliteServerLogo, 
+  McpOfficialBadge 
+} from "./components/McpLogos";
 
 interface Inquiry {
   id: string;
@@ -44,6 +61,7 @@ export default function App() {
   const [pipelineTask, setPipelineTask] = useState<"auto_sheets" | "figma_to_code" | "data_entry" | "code_review">("auto_sheets");
   const [pipelineLogs, setPipelineLogs] = useState<string[]>([]);
   const [pipelineStatus, setPipelineStatus] = useState<"idle" | "running" | "success">("idle");
+  const [mcpConsoleTab, setMcpConsoleTab] = useState<"logs" | "jsonrpc" | "artifact">("logs");
   const logContainerRef = useRef<HTMLDivElement>(null);
 
   // Suggested matching task based on selections
@@ -213,7 +231,7 @@ export default function App() {
       if (q.includes("mcp") || q.includes("model context")) {
         simulatedReply = "Rahul is a hands-on **MCP (Model Context Protocol) Integration Specialist**. He connects LLM agents securely with external system APIs (like Google Sheets, Microsoft Excel, GitHub repositories, and system terminals). He creates secure tool declarations so AI models can execute system actions directly, improving task execution speed by up to 90%!";
       } else if (q.includes("github") || q.includes("git")) {
-        simulatedReply = `[MCP Connection: Fetching GitHub profile data...]\n\nI have successfully retrieved Rahul's GitHub details via the **GitHub MCP Server**:\n- 🐙 **GitHub Profile**: https://github.com/RahulEK\n- **Projects Focus**: Advanced Model Context Protocol (MCP) servers, custom AI agent templates, and data/sheet automation scripts.\n- **Featured Repositories**:\n  1. \`custom-mcp-servers\` (Adapters for spreadsheet sync)\n  2. \`ai-workflow-blueprints\` (Multi-agent orchestration configurations)`;
+        simulatedReply = `[MCP Connection: Fetching GitHub profile data...]\n\nI have successfully retrieved Rahul's GitHub details via the **GitHub MCP Server**:\n- 🐙 **GitHub Profile**: https://github.com/rahulEk12\n- **Projects Focus**: Advanced Model Context Protocol (MCP) servers, custom AI agent templates, and data/sheet automation scripts.\n- **Featured Repositories**:\n  1. \`custom-mcp-servers\` (Adapters for spreadsheet sync)\n  2. \`ai-workflow-blueprints\` (Multi-agent orchestration configurations)`;
       } else if (q.includes("linkedin") || q.includes("linkd")) {
         simulatedReply = `[MCP Connection: Fetching LinkedIn profile data...]\n\nI have successfully retrieved Rahul's LinkedIn details via the **LinkedIn MCP Server**:\n- 🔗 **LinkedIn URL**: https://www.linkedin.com/in/rahul-ek\n- **Professional Status**: Open to connect with tech leads, product owners, and recruiters looking for contract, freelance, or full-time expertise in custom MCP integrations and agent pipelines.`;
       } else if (q.includes("m.sc") || q.includes("jnu") || q.includes("physics") || q.includes("education")) {
@@ -448,21 +466,22 @@ export default function App() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 
                 {/* Hero / Left profile */}
-                <div className="lg:col-span-8 bg-stone-900/40 hover:bg-stone-900/50 transition border border-stone-800/80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-tr from-brand-cyan/5 to-brand-purple/5 rounded-full blur-3xl group-hover:scale-125 transition duration-500" />
+                <div className="lg:col-span-8 bg-[#030611] hover:border-cyan-500/60 transition-all duration-500 border border-stone-800/80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group shadow-2xl">
+                  {/* Computerized AI Space Station QREK Background */}
+                  <SpaceStationQrek />
                   
-                  <div className="space-y-4 relative z-10">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-800/30 text-cyan-400 text-xs font-mono">
-                      <Sparkles className="w-3.5 h-3.5" />
+                  <div className="space-y-4 relative z-10 max-w-2xl lg:max-w-xl">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/70 border border-cyan-800/50 text-cyan-400 text-xs font-mono backdrop-blur-md shadow-sm">
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
                       <span>Globally Active Freelancer & Innovator</span>
                     </div>
 
-                    <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+                    <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white leading-tight drop-shadow-[0_3px_12px_rgba(0,0,0,0.9)]">
                       Designing the Future of <br className="hidden sm:inline" />
                       <span className="bg-gradient-to-r from-brand-cyan via-brand-blue to-brand-purple bg-clip-text text-transparent">AI agent automation</span>
                     </h1>
 
-                    <p className="text-gray-300 max-w-2xl text-base sm:text-lg leading-relaxed">
+                    <p className="text-gray-200 text-base sm:text-lg leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
                       {CONTACT_INFO.tagline}
                     </p>
 
@@ -470,7 +489,7 @@ export default function App() {
                     <div className="flex flex-wrap gap-4 pt-4">
                       <button 
                         onClick={() => setActiveTab("mcp")}
-                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium text-sm flex items-center gap-2 shadow-lg shadow-cyan-500/10 cursor-pointer transition"
+                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium text-sm flex items-center gap-2 shadow-lg shadow-cyan-500/25 cursor-pointer transition"
                       >
                         <Sliders className="w-4 h-4" />
                         Test MCP Pipelines
@@ -479,7 +498,7 @@ export default function App() {
                       
                       <button 
                         onClick={() => setActiveTab("chat")}
-                        className="px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 border border-stone-750 text-white font-medium text-sm flex items-center gap-2 cursor-pointer transition"
+                        className="px-5 py-2.5 rounded-xl bg-stone-900/90 hover:bg-stone-800 border border-stone-700 text-white font-medium text-sm flex items-center gap-2 cursor-pointer transition backdrop-blur-md shadow-md"
                       >
                         <Bot className="w-4 h-4 text-purple-400" />
                         Chat with Qrek (AI Twin)
@@ -487,30 +506,33 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-stone-800/60 font-mono">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-4 font-mono relative z-10 bg-stone-950/80 border border-stone-800/80 p-3.5 rounded-xl backdrop-blur-md shadow-lg">
                     <div className="space-y-1">
-                      <span className="text-[10px] text-gray-500 uppercase tracking-widest leading-none">Experience</span>
-                      <p className="text-xl font-bold text-white">{CONTACT_INFO.experienceYears}</p>
+                      <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none font-semibold">Experience</span>
+                      <p className="text-xl font-bold text-white drop-shadow-sm">{CONTACT_INFO.experienceYears}</p>
                     </div>
                     <div className="space-y-1">
-                      <span className="text-[10px] text-gray-500 uppercase tracking-widest leading-none">Integrations</span>
-                      <p className="text-xl font-bold text-white">50+ Projects</p>
+                      <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none font-semibold">Integrations</span>
+                      <p className="text-xl font-bold text-white drop-shadow-sm">50+ Projects</p>
                     </div>
                     <div className="space-y-1">
-                      <span className="text-[10px] text-gray-500 uppercase tracking-widest leading-none">MCP Servers</span>
-                      <p className="text-xl font-bold text-white">10+ Configs</p>
+                      <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none font-semibold">MCP Servers</span>
+                      <p className="text-xl font-bold text-white drop-shadow-sm">10+ Configs</p>
                     </div>
                     <div className="space-y-1">
-                      <span className="text-[10px] text-gray-500 uppercase tracking-widest leading-none">Global Accuracy</span>
-                      <p className="text-xl font-bold text-white">99% Active</p>
+                      <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none font-semibold">Global Accuracy</span>
+                      <p className="text-xl font-bold text-emerald-400 drop-shadow-sm">99% Active</p>
                     </div>
                   </div>
 
                 </div>
 
                 {/* Portrait Card */}
-                <div className="lg:col-span-4 bg-stone-900/40 border border-stone-800/80 rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden group">
-                  <div className="space-y-4">
+                <div className="lg:col-span-4 bg-[#060914] hover:border-emerald-500/60 transition-all duration-500 border border-stone-800/80 rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden group shadow-2xl">
+                  {/* Cyber World Map with Home Coordinate Target: 26°36'43.7"N 83°14'54.8"E */}
+                  <WorldMapLocation />
+
+                  <div className="space-y-4 relative z-10">
                     <div className="relative w-24 h-24 mx-auto mb-2">
                       <div className="absolute inset-0 bg-gradient-to-tr from-brand-cyan to-brand-purple rounded-full p-0.5 shadow-xl">
                         <div className="w-full h-full rounded-full bg-[#070709] flex items-center justify-center overflow-hidden">
@@ -526,24 +548,24 @@ export default function App() {
 
                     <div className="text-center space-y-1">
                       <h2 className="text-xl font-bold text-white">{CONTACT_INFO.name}</h2>
-                      <p className="text-xs text-gray-400 font-mono uppercase tracking-wide">Developer & Designer</p>
+                      <p className="text-xs text-gray-300 font-mono uppercase tracking-wide">Developer & Designer</p>
                     </div>
 
-                    <div className="space-y-3 pt-4 border-t border-stone-800/40 text-sm">
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <div className="w-8 h-8 rounded-lg bg-stone-950 flex items-center justify-center text-cyan-400 border border-stone-800">
+                    <div className="space-y-3 pt-4 border-t border-stone-800/60 text-sm">
+                      <div className="flex items-center gap-3 text-gray-200">
+                        <div className="w-8 h-8 rounded-lg bg-stone-900/90 flex items-center justify-center text-cyan-400 border border-stone-800 backdrop-blur-sm">
                           <Mail className="w-4 h-4" />
                         </div>
                         <span className="truncate">{CONTACT_INFO.email}</span>
                       </div>
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <div className="w-8 h-8 rounded-lg bg-stone-950 flex items-center justify-center text-purple-400 border border-stone-800">
+                      <div className="flex items-center gap-3 text-gray-200">
+                        <div className="w-8 h-8 rounded-lg bg-stone-900/90 flex items-center justify-center text-purple-400 border border-stone-800 backdrop-blur-sm">
                           <Phone className="w-4 h-4" />
                         </div>
                         <span>{CONTACT_INFO.phone}</span>
                       </div>
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <div className="w-8 h-8 rounded-lg bg-stone-950 flex items-center justify-center text-blue-400 border border-stone-800">
+                      <div className="flex items-center gap-3 text-gray-200">
+                        <div className="w-8 h-8 rounded-lg bg-stone-900/90 flex items-center justify-center text-blue-400 border border-stone-800 backdrop-blur-sm">
                           <MapPin className="w-4 h-4" />
                         </div>
                         <span className="truncate">{CONTACT_INFO.location}</span>
@@ -551,7 +573,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="pt-6 mt-6 border-t border-stone-800/40 flex items-center justify-around">
+                  <div className="pt-6 mt-6 border-t border-stone-800/60 flex items-center justify-around relative z-10 bg-stone-950/60 rounded-xl p-2.5 backdrop-blur-xs">
                     <a href={CONTACT_INFO.github} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition">
                       <Github className="w-5 h-5 cursor-pointer" />
                     </a>
@@ -567,87 +589,96 @@ export default function App() {
               {/* Bento Row Two */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                {/* Custom MCP Configurator Preview card */}
-                <div className="bg-stone-900/40 hover:bg-stone-900/50 transition border border-stone-800/80 rounded-2xl p-6 relative group overflow-hidden flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="w-10 h-10 rounded-xl bg-cyan-950/50 border border-cyan-800/40 flex items-center justify-center text-cyan-400">
+                {/* 1. Custom MCP Configurator Preview card */}
+                <div className="bg-[#060914] hover:border-cyan-500/60 transition-all duration-500 border border-stone-800/80 rounded-2xl p-6 relative group overflow-hidden flex flex-col justify-between shadow-xl">
+                  {/* MCP Data-flow & Protocol Bus Background */}
+                  <McpProtocolBackground />
+
+                  <div className="space-y-3 relative z-10">
+                    <div className="w-10 h-10 rounded-xl bg-cyan-950/70 border border-cyan-800/50 flex items-center justify-center text-cyan-400 shadow-md backdrop-blur-sm">
                       <Server className="w-5 h-5 animate-pulse" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">Model Context Protocol</h3>
-                    <p className="text-stone-400 text-sm leading-relaxed">
+                    <h3 className="text-lg font-bold text-white drop-shadow-sm">Model Context Protocol</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed drop-shadow-sm">
                       Specialized pipeline designed to allow AI models to perform bulk data syncs, automated formatting layouts, and file conversions natively.
                     </p>
                   </div>
                   <button 
                     onClick={() => setActiveTab("mcp")}
-                    className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition group-hover:translate-x-1 duration-200"
+                    className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition group-hover:translate-x-1 duration-200 relative z-10 cursor-pointer"
                   >
                     Open Simulator Dashboard <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
 
-                {/* AI twin bento */}
-                <div className="bg-stone-900/40 hover:bg-stone-900/50 transition border border-stone-800/80 rounded-2xl p-6 relative group overflow-hidden flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="w-10 h-10 rounded-xl bg-purple-950/50 border border-purple-800/40 flex items-center justify-center text-purple-400">
+                {/* 2. AI twin bento */}
+                <div className="bg-[#080516] hover:border-purple-500/60 transition-all duration-500 border border-stone-800/80 rounded-2xl p-6 relative group overflow-hidden flex flex-col justify-between shadow-xl">
+                  {/* Neural Synapse & Voice AI Background */}
+                  <AiTwinBackground />
+
+                  <div className="space-y-3 relative z-10">
+                    <div className="w-10 h-10 rounded-xl bg-purple-950/70 border border-purple-800/50 flex items-center justify-center text-purple-400 shadow-md backdrop-blur-sm">
                       <Bot className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">Qrek (Rahul's AI Twin)</h3>
-                    <p className="text-stone-400 text-sm leading-relaxed">
+                    <h3 className="text-lg font-bold text-white drop-shadow-sm">Qrek (Rahul's AI Twin)</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed drop-shadow-sm">
                       Chat in real-time with Qrek, Rahul's AI Representative. Qrek can fetch live data (like GitHub and LinkedIn info) via MCP integrations.
                     </p>
                   </div>
                   <button 
                     onClick={() => setActiveTab("chat")}
-                    className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 transition group-hover:translate-x-1 duration-200"
+                    className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 transition group-hover:translate-x-1 duration-200 relative z-10 cursor-pointer"
                   >
                     Initiate Live Conversation <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
 
-                {/* Achievements quick grid */}
-                <div className="bg-stone-900/40 hover:bg-stone-900/50 transition border border-stone-800/80 rounded-2xl p-6 flex flex-col justify-between">
-                  <div className="space-y-4">
+                {/* 3. Achievements / Skills quick grid */}
+                <div className="bg-[#060818] hover:border-blue-500/60 transition-all duration-500 border border-stone-800/80 rounded-2xl p-6 flex flex-col justify-between relative group overflow-hidden shadow-xl">
+                  {/* Technical Benchmark & Radar Metric Matrix Background */}
+                  <SkillsSnapshotBackground />
+
+                  <div className="space-y-4 relative z-10">
                     <div className="flex items-center justify-between">
-                      <h4 className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold">Skills Snapshot</h4>
-                      <button onClick={() => setActiveTab("resume")} className="text-xs text-stone-500 hover:text-white transition">View All</button>
+                      <h4 className="font-mono text-xs uppercase tracking-wider text-cyan-300 font-bold drop-shadow-sm">Skills Snapshot</h4>
+                      <button onClick={() => setActiveTab("resume")} className="text-xs text-stone-400 hover:text-white transition cursor-pointer">View All</button>
                     </div>
 
                     <div className="space-y-3">
                       <div>
                         <div className="flex justify-between text-xs font-mono mb-1">
-                          <span className="text-stone-300">AI Automation</span>
+                          <span className="text-stone-200 font-medium">AI Automation</span>
                           <span className="text-cyan-400 font-bold">95%</span>
                         </div>
-                        <div className="w-full h-1.5 bg-stone-950 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-stone-900/90 rounded-full overflow-hidden border border-stone-800/60">
                           <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" style={{ width: "95%" }}></div>
                         </div>
                       </div>
 
                       <div>
                         <div className="flex justify-between text-xs font-mono mb-1">
-                          <span className="text-stone-300">Canva / Figma Layouts</span>
+                          <span className="text-stone-200 font-medium">Canva / Figma Layouts</span>
                           <span className="text-purple-400 font-bold">90%</span>
                         </div>
-                        <div className="w-full h-1.5 bg-stone-950 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-stone-900/90 rounded-full overflow-hidden border border-stone-800/60">
                           <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style={{ width: "90%" }}></div>
                         </div>
                       </div>
 
                       <div>
                         <div className="flex justify-between text-xs font-mono mb-1">
-                          <span className="text-stone-300">Front-End Developer</span>
+                          <span className="text-stone-200 font-medium">Front-End Developer</span>
                           <span className="text-blue-400 font-bold">85%</span>
                         </div>
-                        <div className="w-full h-1.5 bg-stone-950 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-stone-900/90 rounded-full overflow-hidden border border-stone-800/60">
                           <div className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full" style={{ width: "85%" }}></div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-stone-800/40 text-xs font-mono text-stone-400 flex items-center gap-1.5">
-                    <Terminal className="w-3.5 h-3.5 text-stone-500" />
+                  <div className="pt-4 border-t border-stone-800/60 text-xs font-mono text-stone-300 flex items-center gap-1.5 relative z-10">
+                    <Terminal className="w-3.5 h-3.5 text-cyan-400" />
                     <span>Linguistic skill standard: Bhojpuri, Hindi, English</span>
                   </div>
                 </div>
@@ -666,12 +697,15 @@ export default function App() {
               className="space-y-6"
             >
               {/* Info introductory bar */}
-              <div className="bg-stone-900/30 border border-stone-800 p-6 rounded-2xl relative overflow-hidden">
+              <div className="bg-gradient-to-r from-stone-900/60 via-stone-900/30 to-stone-900/60 border border-stone-800 p-6 rounded-2xl relative overflow-hidden shadow-xl">
                 <div className="max-w-3xl space-y-2 relative z-10">
-                  <span className="font-mono text-xs text-cyan-400 font-bold uppercase tracking-widest">Active Pipeline Simulator Dashboard</span>
-                  <h2 className="text-2xl font-extrabold text-white">Model Context Protocol (MCP) Workflows Explorer</h2>
-                  <p className="text-stone-400 text-sm leading-relaxed">
-                    Test how Rahul integrates modern LLMs directly with local or cloud-based data hosts. Choose an AI Client, select a target MCP server, and trigger a live pipeline automation diff.
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/40 text-cyan-400 text-xs font-mono">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    <span>Active Pipeline Simulator & Protocol Hub</span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Model Context Protocol (MCP) Workflows Explorer</h2>
+                  <p className="text-stone-300 text-sm leading-relaxed">
+                    Test how Rahul integrates modern LLMs directly with local and cloud-based data hosts. Choose an AI Client Agent, select a target MCP server, and trigger an automated live pipeline execution.
                   </p>
                 </div>
               </div>
@@ -680,115 +714,184 @@ export default function App() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
                 {/* Left controls column */}
-                <div className="lg:col-span-4 bg-stone-900/20 border border-stone-800 rounded-2xl p-6 space-y-6">
+                <div className="lg:col-span-4 bg-stone-950/70 border border-stone-800/80 rounded-2xl p-6 space-y-6 shadow-xl backdrop-blur-sm">
                   
                   {/* Step 1: LLM Selection */}
                   <div className="space-y-3">
-                    <label className="text-xs font-bold uppercase tracking-wider text-stone-400 font-mono">1. Select AI Client Agent</label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-bold uppercase tracking-wider text-cyan-400 font-mono">1. Select AI Client Agent</label>
+                      <span className="text-[10px] font-mono text-stone-500">LLM HOST</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2.5">
+                      {/* Claude 3.5 */}
                       <button 
                         onClick={() => setSelectedAgent("claude")}
-                        className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 transition text-center ${selectedAgent === "claude" ? "bg-cyan-950/40 border-cyan-500 text-cyan-400 font-bold shadow-md shadow-cyan-500/5" : "bg-stone-950/40 border-stone-800 text-stone-400 hover:text-white"}`}
+                        className={`p-3 rounded-xl border flex flex-col items-center gap-2 transition text-center cursor-pointer group ${selectedAgent === "claude" ? "bg-amber-950/30 border-amber-500/80 text-amber-300 font-bold shadow-lg shadow-amber-500/10" : "bg-stone-900/50 border-stone-800 text-stone-400 hover:text-white hover:border-stone-700"}`}
                       >
-                        <Bot className="w-5 h-5" />
-                        <span className="text-[10px] uppercase font-mono">Claude 3.5</span>
+                        <div className="w-9 h-9 rounded-xl bg-stone-950 p-1 border border-stone-800 flex items-center justify-center group-hover:scale-105 transition">
+                          <ClaudeAgentLogo className="w-7 h-7" />
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-[10px] uppercase font-mono font-bold leading-tight">Claude 3.5</span>
+                          <span className="text-[9px] text-stone-500 font-mono">Anthropic</span>
+                        </div>
                       </button>
                       
+                      {/* GPT-4o */}
                       <button 
                         onClick={() => setSelectedAgent("gpt4")}
-                        className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 transition text-center ${selectedAgent === "gpt4" ? "bg-purple-950/40 border-purple-500 text-purple-400 font-bold shadow-md shadow-purple-500/5" : "bg-stone-950/40 border-stone-800 text-stone-400 hover:text-white"}`}
+                        className={`p-3 rounded-xl border flex flex-col items-center gap-2 transition text-center cursor-pointer group ${selectedAgent === "gpt4" ? "bg-emerald-950/30 border-emerald-500/80 text-emerald-300 font-bold shadow-lg shadow-emerald-500/10" : "bg-stone-900/50 border-stone-800 text-stone-400 hover:text-white hover:border-stone-700"}`}
                       >
-                        <Terminal className="w-5 h-5" />
-                        <span className="text-[10px] uppercase font-mono">GPT-4o</span>
+                        <div className="w-9 h-9 rounded-xl bg-stone-950 p-1 border border-stone-800 flex items-center justify-center group-hover:scale-105 transition">
+                          <Gpt4AgentLogo className="w-7 h-7" />
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-[10px] uppercase font-mono font-bold leading-tight">GPT-4o</span>
+                          <span className="text-[9px] text-stone-500 font-mono">OpenAI</span>
+                        </div>
                       </button>
 
+                      {/* Gemini 3.5 */}
                       <button 
                         onClick={() => setSelectedAgent("gemini")}
-                        className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 transition text-center ${selectedAgent === "gemini" ? "bg-blue-950/40 border-blue-500 text-blue-400 font-bold shadow-md shadow-blue-500/5" : "bg-stone-950/40 border-stone-800 text-stone-400 hover:text-white"}`}
+                        className={`p-3 rounded-xl border flex flex-col items-center gap-2 transition text-center cursor-pointer group ${selectedAgent === "gemini" ? "bg-blue-950/30 border-blue-500/80 text-blue-300 font-bold shadow-lg shadow-blue-500/10" : "bg-stone-900/50 border-stone-800 text-stone-400 hover:text-white hover:border-stone-700"}`}
                       >
-                        <Cpu className="w-5 h-5" />
-                        <span className="text-[10px] uppercase font-mono">Gemini 3.5</span>
+                        <div className="w-9 h-9 rounded-xl bg-stone-950 p-1 border border-stone-800 flex items-center justify-center group-hover:scale-105 transition">
+                          <GeminiAgentLogo className="w-7 h-7" />
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-[10px] uppercase font-mono font-bold leading-tight">Gemini 3.5</span>
+                          <span className="text-[9px] text-stone-500 font-mono">Google</span>
+                        </div>
                       </button>
                     </div>
                   </div>
 
                   {/* Step 2: MCP Server wrapper */}
                   <div className="space-y-3">
-                    <label className="text-xs font-bold uppercase tracking-wider text-stone-400 font-mono">2. Select Target MCP Server</label>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-bold uppercase tracking-wider text-cyan-400 font-mono">2. Select Target MCP Server</label>
+                      <span className="text-[10px] font-mono text-stone-500">TOOL HOST</span>
+                    </div>
                     <div className="space-y-2">
+                      {/* Google Sheets Server */}
                       <button 
                         onClick={() => setSelectedMcpServer("gsheets")}
-                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition ${selectedMcpServer === "gsheets" ? "bg-gradient-to-r from-emerald-950/30 to-emerald-900/10 border-emerald-500 text-emerald-400" : "bg-stone-950/40 border-stone-800 text-stone-400 hover:text-white"}`}
+                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition cursor-pointer ${selectedMcpServer === "gsheets" ? "bg-emerald-950/40 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-500/10" : "bg-stone-900/40 border-stone-800 text-stone-400 hover:text-white hover:border-stone-700"}`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <Grid className="w-4 h-4 text-emerald-400" />
-                          <span className="text-xs font-medium">Google Sheets Server</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-stone-950 p-1 border border-stone-800 flex items-center justify-center">
+                            <SheetsServerLogo className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold text-white block">Google Sheets Server</span>
+                            <span className="text-[10px] font-mono text-emerald-400">tools/write_spreadsheet_matrix</span>
+                          </div>
                         </div>
-                        {selectedMcpServer === "gsheets" && <Check className="w-4 h-4" />}
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-mono uppercase bg-emerald-950 text-emerald-400 border border-emerald-800/60 px-1.5 py-0.5 rounded">SSE</span>
+                          {selectedMcpServer === "gsheets" && <Check className="w-4 h-4 text-emerald-400" />}
+                        </div>
                       </button>
 
+                      {/* Figma Canvas Server */}
                       <button 
                         onClick={() => setSelectedMcpServer("figma")}
-                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition ${selectedMcpServer === "figma" ? "bg-gradient-to-r from-pink-950/30 to-pink-900/10 border-pink-500 text-pink-400" : "bg-stone-950/40 border-stone-800 text-stone-400 hover:text-white"}`}
+                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition cursor-pointer ${selectedMcpServer === "figma" ? "bg-purple-950/40 border-purple-500 text-purple-300 shadow-md shadow-purple-500/10" : "bg-stone-900/40 border-stone-800 text-stone-400 hover:text-white hover:border-stone-700"}`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <Feather className="w-4 h-4 text-pink-400" />
-                          <span className="text-xs font-medium">Figma Canvas Server</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-stone-950 p-1 border border-stone-800 flex items-center justify-center">
+                            <FigmaServerLogo className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold text-white block">Figma Canvas Server</span>
+                            <span className="text-[10px] font-mono text-purple-400">tools/get_design_context</span>
+                          </div>
                         </div>
-                        {selectedMcpServer === "figma" && <Check className="w-4 h-4" />}
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-mono uppercase bg-purple-950 text-purple-400 border border-purple-800/60 px-1.5 py-0.5 rounded">REST</span>
+                          {selectedMcpServer === "figma" && <Check className="w-4 h-4 text-purple-400" />}
+                        </div>
                       </button>
 
+                      {/* MS Excel Server */}
                       <button 
                         onClick={() => setSelectedMcpServer("excel")}
-                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition ${selectedMcpServer === "excel" ? "bg-gradient-to-r from-green-950/40 to-green-900/10 border-green-500 text-green-400" : "bg-stone-950/40 border-stone-800 text-stone-400 hover:text-white"}`}
+                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition cursor-pointer ${selectedMcpServer === "excel" ? "bg-green-950/40 border-green-500 text-green-300 shadow-md shadow-green-500/10" : "bg-stone-900/40 border-stone-800 text-stone-400 hover:text-white hover:border-stone-700"}`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <Table className="w-4 h-4 text-green-400" />
-                          <span className="text-xs font-medium">MS Excel Server</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-stone-950 p-1 border border-stone-800 flex items-center justify-center">
+                            <ExcelServerLogo className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold text-white block">MS Excel Server</span>
+                            <span className="text-[10px] font-mono text-green-400">tools/calculate_workbook_formula</span>
+                          </div>
                         </div>
-                        {selectedMcpServer === "excel" && <Check className="w-4 h-4" />}
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-mono uppercase bg-green-950 text-green-400 border border-green-800/60 px-1.5 py-0.5 rounded">STDIO</span>
+                          {selectedMcpServer === "excel" && <Check className="w-4 h-4 text-green-400" />}
+                        </div>
                       </button>
 
+                      {/* GitHub Repository Server */}
                       <button 
                         onClick={() => setSelectedMcpServer("github")}
-                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition ${selectedMcpServer === "github" ? "bg-gradient-to-r from-neutral-900 to-neutral-800 border-stone-500 text-white" : "bg-stone-950/40 border-stone-800 text-stone-400 hover:text-white"}`}
+                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition cursor-pointer ${selectedMcpServer === "github" ? "bg-neutral-900 border-neutral-400 text-white shadow-md shadow-white/5" : "bg-stone-900/40 border-stone-800 text-stone-400 hover:text-white hover:border-stone-700"}`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <Github className="w-4 h-4 text-white" />
-                          <span className="text-xs font-medium">GitHub Repository Server</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-stone-950 p-1 border border-stone-800 flex items-center justify-center">
+                            <GithubServerLogo className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold text-white block">GitHub Repository Server</span>
+                            <span className="text-[10px] font-mono text-cyan-300">tools/review_pull_request</span>
+                          </div>
                         </div>
-                        {selectedMcpServer === "github" && <Check className="w-4 h-4" />}
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-mono uppercase bg-stone-800 text-stone-300 border border-stone-700 px-1.5 py-0.5 rounded">OCTOKIT</span>
+                          {selectedMcpServer === "github" && <Check className="w-4 h-4 text-white" />}
+                        </div>
                       </button>
 
+                      {/* SQLite DB Server */}
                       <button 
                         onClick={() => setSelectedMcpServer("sqlite")}
-                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition ${selectedMcpServer === "sqlite" ? "bg-gradient-to-r from-blue-950/40 to-blue-900/10 border-blue-500 text-blue-400" : "bg-stone-950/40 border-stone-800 text-stone-400 hover:text-white"}`}
+                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition cursor-pointer ${selectedMcpServer === "sqlite" ? "bg-blue-950/40 border-blue-500 text-blue-300 shadow-md shadow-blue-500/10" : "bg-stone-900/40 border-stone-800 text-stone-400 hover:text-white hover:border-stone-700"}`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <Database className="w-4 h-4 text-cyan-400" />
-                          <span className="text-xs font-medium">SQLite DB Server</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-stone-950 p-1 border border-stone-800 flex items-center justify-center">
+                            <SqliteServerLogo className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold text-white block">SQLite DB Server</span>
+                            <span className="text-[10px] font-mono text-blue-400">tools/execute_sql_query</span>
+                          </div>
                         </div>
-                        {selectedMcpServer === "sqlite" && <Check className="w-4 h-4" />}
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-mono uppercase bg-blue-950 text-blue-400 border border-blue-800/60 px-1.5 py-0.5 rounded">LOCAL</span>
+                          {selectedMcpServer === "sqlite" && <Check className="w-4 h-4 text-blue-400" />}
+                        </div>
                       </button>
                     </div>
                   </div>
 
                   {/* Run controls */}
-                  <div className="pt-4 border-t border-stone-800">
+                  <div className="pt-2 border-t border-stone-800/80">
                     <button
                       onClick={runMcpPipeline}
                       disabled={pipelineStatus === "running"}
-                      className={`w-full py-3 px-4 rounded-xl font-bold text-sm tracking-wide text-center flex items-center justify-center gap-2 transition cursor-pointer ${pipelineStatus === "running" ? "bg-stone-800 text-gray-500" : "bg-gradient-to-r from-brand-cyan to-brand-blue hover:scale-[1.01] text-black"}`}
+                      className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm tracking-wide text-center flex items-center justify-center gap-2.5 transition cursor-pointer shadow-lg ${pipelineStatus === "running" ? "bg-stone-800 text-gray-500 border border-stone-700" : "bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-cyan-500/20 active:scale-[0.99]"}`}
                     >
                       {pipelineStatus === "running" ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
-                          Running Connection Pipeline...
+                          <span>Executing Pipeline Handshake...</span>
                         </>
                       ) : (
                         <>
-                          <Play className="w-4 h-4" />
-                          Execute Integrated Pipeline
+                          <Play className="w-4 h-4 fill-current text-white" />
+                          <span>Execute Integrated Pipeline</span>
                         </>
                       )}
                     </button>
@@ -796,111 +899,346 @@ export default function App() {
 
                 </div>
 
-                {/* Right Interactive Diagram & Live terminal console */}
+                {/* Right Interactive Diagram & Multi-Tab Workbench */}
                 <div className="lg:col-span-8 flex flex-col gap-6">
                   
-                  {/* Visual Node Connection Diagram */}
-                  <div className="bg-stone-950/60 border border-stone-850 p-6 rounded-2xl flex flex-col justify-center items-center min-h-[180px] relative overflow-hidden">
-                    <div className="absolute inset-0 bg-radial-gradient from-transparent to-stone-950 pointer-events-none" />
+                  {/* Visual Node Connection Diagram (Upgraded Architecture Graph) */}
+                  <div className="bg-stone-950/80 border border-stone-800/90 p-6 sm:p-7 rounded-2xl flex flex-col justify-center items-center relative overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-radial from-transparent via-[#050711]/50 to-[#050711]/90 pointer-events-none" />
                     
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 relative z-10 w-full">
+                    {/* Background circuit grid */}
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+
+                    <div className="flex flex-col sm:flex-row items-center justify-around gap-6 relative z-10 w-full">
                       
-                      {/* Node A: AI Agent */}
-                      <div className="flex flex-col items-center gap-2">
-                        <div className="w-16 h-16 rounded-full bg-stone-905 border-2 border-dashed border-stone-700 flex items-center justify-center shadow-lg relative">
-                          <div className={`absolute inset-0 rounded-full ${selectedAgent === "claude" ? "bg-cyan-500/20" : selectedAgent === "gpt4" ? "bg-purple-500/20" : "bg-blue-500/20"} blur-md animate-pulse`}></div>
-                          <Bot className={`w-8 h-8 relative z-10 ${selectedAgent === "claude" ? "text-cyan-400" : selectedAgent === "gpt4" ? "text-purple-400" : "text-blue-400"}`} />
+                      {/* Node A: AI Client Agent */}
+                      <div className="flex flex-col items-center gap-2.5 text-center">
+                        <div className="w-16 h-16 rounded-2xl bg-stone-900 border-2 border-stone-700 flex items-center justify-center shadow-xl relative p-2 group-hover:border-cyan-400 transition">
+                          <div className={`absolute inset-0 rounded-2xl ${selectedAgent === "claude" ? "bg-amber-500/20" : selectedAgent === "gpt4" ? "bg-emerald-500/20" : "bg-blue-500/20"} blur-md animate-pulse`} />
+                          <div className="relative z-10">
+                            {selectedAgent === "claude" && <ClaudeAgentLogo className="w-9 h-9" />}
+                            {selectedAgent === "gpt4" && <Gpt4AgentLogo className="w-9 h-9" />}
+                            {selectedAgent === "gemini" && <GeminiAgentLogo className="w-9 h-9" />}
+                          </div>
+                          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-stone-950 animate-ping" />
+                          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-stone-950" />
                         </div>
-                        <span className="text-[11px] font-bold font-mono uppercase text-gray-300">
-                          {selectedAgent === "claude" ? "Claude Client" : selectedAgent === "gpt4" ? "OpenAI Client" : "Gemini Client"}
+                        <div>
+                          <span className="text-xs font-bold font-mono text-white block">
+                            {selectedAgent === "claude" ? "Claude 3.5 Sonnet" : selectedAgent === "gpt4" ? "OpenAI GPT-4o" : "Google Gemini 3.5"}
+                          </span>
+                          <span className="text-[10px] font-mono text-stone-400">Client Agent Host</span>
+                        </div>
+                      </div>
+
+                      {/* Interconnect Bridge A (Agent <-> MCP Gateway) */}
+                      <div className="w-full max-w-[110px] flex flex-col items-center justify-center relative">
+                        <div className="h-1 w-full bg-stone-800 rounded-full relative overflow-hidden">
+                          {pipelineStatus === "running" && (
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400 to-transparent w-full animate-[scan-line_1s_linear_infinite]" />
+                          )}
+                        </div>
+                        <span className="mt-1.5 px-2 py-0.5 rounded bg-stone-900 border border-cyan-800/60 text-[9px] font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                          JSON-RPC 2.0
                         </span>
                       </div>
 
-                      {/* Line Pulse flow indicator */}
-                      <div className="w-full max-w-[120px] flex items-center justify-center relative">
-                        <div className="h-0.5 w-full bg-stone-800 relative">
+                      {/* Node B: Official MCP Router / Protocol Core */}
+                      <div className="flex flex-col items-center gap-2.5 text-center">
+                        <div className="w-16 h-16 rounded-2xl bg-cyan-950/60 border-2 border-cyan-500/80 flex items-center justify-center shadow-xl shadow-cyan-500/15 relative p-2">
+                          <div className="absolute inset-0 rounded-2xl bg-cyan-500/20 blur-md animate-pulse" />
+                          <McpOfficialBadge className="w-9 h-9 relative z-10" />
+                        </div>
+                        <div>
+                          <span className="text-xs font-bold font-mono text-cyan-400 block">MCP Protocol</span>
+                          <span className="text-[10px] font-mono text-emerald-400 font-semibold">Router Gateway</span>
+                        </div>
+                      </div>
+
+                      {/* Interconnect Bridge B (MCP Gateway <-> Server) */}
+                      <div className="w-full max-w-[110px] flex flex-col items-center justify-center relative">
+                        <div className="h-1 w-full bg-stone-800 rounded-full relative overflow-hidden">
                           {pipelineStatus === "running" && (
-                            <div className="absolute top-[-1px] h-1 w-8 bg-cyan-400 rounded-full animate-ping left-0" style={{ animationDuration: '0.8s' }}></div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent w-full animate-[scan-line_1s_linear_infinite]" />
                           )}
                         </div>
-                        <div className="absolute px-2 py-0.5 rounded bg-stone-900 border border-stone-800 text-[10px] font-mono text-cyan-400 font-bold uppercase uppercase tracking-wider">
-                          MCP Link
-                        </div>
-                      </div>
-
-                      {/* Node B — MCP Service Wrapper router */}
-                      <div className="flex flex-col items-center gap-2">
-                        <div className="w-16 h-16 rounded-full bg-stone-905 border-2 border-emerald-500/40 flex items-center justify-center shadow-lg relative animate-pulse">
-                          <Server className="w-8 h-8 text-cyan-400" />
-                        </div>
-                        <span className="text-[11px] font-bold font-mono uppercase text-emerald-400">MCP Protocol</span>
-                      </div>
-
-                      {/* Line Pulse flow indicator B */}
-                      <div className="w-full max-w-[120px] flex items-center justify-center relative">
-                        <div className="h-0.5 w-full bg-stone-800 relative">
-                          {pipelineStatus === "running" && (
-                            <div className="absolute top-[-1px] h-1 w-8 bg-purple-400 rounded-full animate-ping right-0" style={{ animationDuration: '0.8s' }}></div>
-                          )}
-                        </div>
-                        <div className="absolute px-2 py-0.5 rounded bg-stone-900 border border-stone-800 text-[10px] font-mono text-purple-400 font-bold uppercase uppercase tracking-wider font-medium">
-                          Secure API
-                        </div>
-                      </div>
-
-                      {/* Node C: The Data Host */}
-                      <div className="flex flex-col items-center gap-2">
-                        <div className="w-16 h-16 rounded-full bg-stone-905 border-2 border-dashed border-stone-700 flex items-center justify-center shadow-lg relative">
-                          {selectedMcpServer === "gsheets" && <Grid className="w-8 h-8 text-emerald-400" />}
-                          {selectedMcpServer === "figma" && <Feather className="w-8 h-8 text-pink-400" />}
-                          {selectedMcpServer === "excel" && <Table className="w-8 h-8 text-green-400" />}
-                          {selectedMcpServer === "github" && <Github className="w-8 h-8 text-white" />}
-                          {selectedMcpServer === "sqlite" && <Database className="w-8 h-8 text-cyan-400" />}
-                        </div>
-                        <span className="text-[11px] font-bold font-mono uppercase text-gray-300">
-                          {selectedMcpServer === "gsheets" ? "GSheets DB" : selectedMcpServer === "figma" ? "Figma Asset" : selectedMcpServer === "excel" ? "MS Excel Matrix" : selectedMcpServer === "github" ? "GitHub Code" : "SQL Database"}
+                        <span className="mt-1.5 px-2 py-0.5 rounded bg-stone-900 border border-purple-800/60 text-[9px] font-mono text-purple-400 font-bold uppercase tracking-wider">
+                          Secure Tools API
                         </span>
+                      </div>
+
+                      {/* Node C: The Data Host Server */}
+                      <div className="flex flex-col items-center gap-2.5 text-center">
+                        <div className="w-16 h-16 rounded-2xl bg-stone-900 border-2 border-stone-700 flex items-center justify-center shadow-xl relative p-2">
+                          <div className="absolute inset-0 rounded-2xl bg-emerald-500/10 blur-md animate-pulse" />
+                          <div className="relative z-10">
+                            {selectedMcpServer === "gsheets" && <SheetsServerLogo className="w-9 h-9" />}
+                            {selectedMcpServer === "figma" && <FigmaServerLogo className="w-9 h-9" />}
+                            {selectedMcpServer === "excel" && <ExcelServerLogo className="w-9 h-9" />}
+                            {selectedMcpServer === "github" && <GithubServerLogo className="w-9 h-9" />}
+                            {selectedMcpServer === "sqlite" && <SqliteServerLogo className="w-9 h-9" />}
+                          </div>
+                        </div>
+                        <div>
+                          <span className="text-xs font-bold font-mono text-white block">
+                            {selectedMcpServer === "gsheets" ? "Google Sheets" : selectedMcpServer === "figma" ? "Figma Canvas" : selectedMcpServer === "excel" ? "MS Excel Matrix" : selectedMcpServer === "github" ? "GitHub Repository" : "SQLite DB"}
+                          </span>
+                          <span className="text-[10px] font-mono text-stone-400">Target Host</span>
+                        </div>
                       </div>
 
                     </div>
                   </div>
 
-                  {/* Log console terminal */}
-                  <div className="bg-stone-950 border border-stone-850 rounded-2xl flex flex-col h-[320px] overflow-hidden shadow-inner">
-                    <div className="bg-stone-900 px-4 py-2 flex items-center justify-between border-b border-stone-850">
+                  {/* Multi-Tab Simulator Workbench (Console, JSON-RPC, Live Output) */}
+                  <div className="bg-stone-950 border border-stone-800/90 rounded-2xl flex flex-col h-[350px] overflow-hidden shadow-2xl">
+                    
+                    {/* Workbench Tab Navigation Header */}
+                    <div className="bg-stone-900/90 px-4 py-2.5 flex items-center justify-between border-b border-stone-800">
                       <div className="flex items-center gap-2">
-                        <span className="w-3 h-3 rounded-full bg-red-500/80"></span>
-                        <span className="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-                        <span className="w-3 h-3 rounded-full bg-green-500/80"></span>
-                        <span className="text-xs font-mono text-gray-400 ml-2">Console output logs</span>
+                        {/* Tab 1: Console Logs */}
+                        <button
+                          onClick={() => setMcpConsoleTab("logs")}
+                          className={`px-3 py-1 rounded-lg text-xs font-mono font-semibold transition flex items-center gap-1.5 cursor-pointer ${mcpConsoleTab === "logs" ? "bg-stone-800 text-cyan-400 border border-cyan-800/50" : "text-stone-400 hover:text-white"}`}
+                        >
+                          <Terminal className="w-3.5 h-3.5" />
+                          <span>Console Logs</span>
+                        </button>
+
+                        {/* Tab 2: JSON-RPC Payload Inspector */}
+                        <button
+                          onClick={() => setMcpConsoleTab("jsonrpc")}
+                          className={`px-3 py-1 rounded-lg text-xs font-mono font-semibold transition flex items-center gap-1.5 cursor-pointer ${mcpConsoleTab === "jsonrpc" ? "bg-stone-800 text-purple-400 border border-purple-800/50" : "text-stone-400 hover:text-white"}`}
+                        >
+                          <Code className="w-3.5 h-3.5" />
+                          <span>JSON-RPC 2.0</span>
+                        </button>
+
+                        {/* Tab 3: Live Output Artifact */}
+                        <button
+                          onClick={() => setMcpConsoleTab("artifact")}
+                          className={`px-3 py-1 rounded-lg text-xs font-mono font-semibold transition flex items-center gap-1.5 cursor-pointer ${mcpConsoleTab === "artifact" ? "bg-stone-800 text-emerald-400 border border-emerald-800/50" : "text-stone-400 hover:text-white"}`}
+                        >
+                          <Layers className="w-3.5 h-3.5" />
+                          <span>Output Artifact</span>
+                        </button>
                       </div>
-                      <span className="text-[10px] font-mono text-cyan-400">STATUS: {pipelineStatus.toUpperCase()}</span>
+
+                      {/* Status indicator pills */}
+                      <div className="flex items-center gap-2 font-mono text-[10px]">
+                        <span className={`px-2 py-0.5 rounded-full font-bold uppercase ${pipelineStatus === "success" ? "bg-emerald-950/80 text-emerald-400 border border-emerald-800/60" : pipelineStatus === "running" ? "bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 animate-pulse" : "bg-stone-800 text-stone-400"}`}>
+                          ● {pipelineStatus.toUpperCase()}
+                        </span>
+                        {pipelineLogs.length > 0 && (
+                          <button
+                            onClick={() => { setPipelineLogs([]); setPipelineStatus("idle"); }}
+                            className="text-stone-400 hover:text-white underline cursor-pointer"
+                          >
+                            Clear
+                          </button>
+                        )}
+                      </div>
                     </div>
 
-                    <div 
-                      ref={logContainerRef}
-                      className="p-4 flex-1 overflow-y-auto font-mono text-xs space-y-1.5 text-gray-300 scrollbar-thin scrollbar-thumb-stone-800"
-                    >
-                      {pipelineLogs.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center h-full text-stone-500 space-y-2">
-                          <Terminal className="w-8 h-8 text-stone-600 animate-pulse" />
-                          <p>Interactive Terminal Ready. Click "Execute Integrated Pipeline" to run.</p>
-                        </div>
-                      ) : (
-                        pipelineLogs.map((log, index) => {
-                          let colorClass = "text-stone-300";
-                          if (log.includes("[✅ SUCCESS]")) colorClass = "text-emerald-400 font-bold";
-                          else if (log.includes("[🤖 AGENT]") || log.includes("[⚡ SYSTEM]")) colorClass = "text-cyan-400";
-                          else if (log.includes("[🔌 MCP]")) colorClass = "text-yellow-400";
-                          else if (log.includes("[⚙️ ACTION]")) colorClass = "text-purple-400 font-medium";
-                          
-                          return (
-                            <div key={index} className={`${colorClass} leading-relaxed`}>
-                              {log}
+                    {/* Workbench Content Area */}
+                    <div className="flex-1 overflow-hidden relative">
+                      
+                      {/* VIEW 1: CONSOLE LOGS */}
+                      {mcpConsoleTab === "logs" && (
+                        <div 
+                          ref={logContainerRef}
+                          className="p-4 h-full overflow-y-auto font-mono text-xs space-y-1.5 text-gray-300 scrollbar-thin scrollbar-thumb-stone-800"
+                        >
+                          {pipelineLogs.length === 0 ? (
+                            <div className="flex flex-col items-center justify-center h-full text-stone-500 space-y-2">
+                              <Terminal className="w-8 h-8 text-cyan-400/40 animate-pulse" />
+                              <p className="text-stone-400 font-mono text-xs">Interactive Terminal Ready. Click "Execute Integrated Pipeline" to run.</p>
                             </div>
-                          );
-                        })
+                          ) : (
+                            pipelineLogs.map((log, index) => {
+                              let colorClass = "text-stone-300";
+                              if (log.includes("[✅ SUCCESS]")) colorClass = "text-emerald-400 font-bold bg-emerald-950/20 p-1 rounded border border-emerald-800/30";
+                              else if (log.includes("[🤖 AGENT]") || log.includes("[⚡ SYSTEM]")) colorClass = "text-cyan-400 font-medium";
+                              else if (log.includes("[🔌 MCP]")) colorClass = "text-amber-400 font-semibold";
+                              else if (log.includes("[⚙️ ACTION]")) colorClass = "text-purple-400 font-medium";
+                              
+                              return (
+                                <div key={index} className={`${colorClass} leading-relaxed`}>
+                                  {log}
+                                </div>
+                              );
+                            })
+                          )}
+                        </div>
                       )}
+
+                      {/* VIEW 2: JSON-RPC 2.0 PROTOCOL INSPECTOR */}
+                      {mcpConsoleTab === "jsonrpc" && (
+                        <div className="p-4 h-full overflow-y-auto font-mono text-xs space-y-4 text-stone-300 bg-[#070709] scrollbar-thin scrollbar-thumb-stone-800">
+                          <div>
+                            <div className="flex items-center justify-between text-[11px] text-cyan-400 font-bold mb-1">
+                              <span>// JSON-RPC 2.0 REQUEST (Client &rarr; Server)</span>
+                              <span className="text-[10px] text-stone-500">method: "tools/call"</span>
+                            </div>
+                            <pre className="bg-stone-900/60 p-3 rounded-xl border border-stone-800/80 text-[11px] text-cyan-300 leading-relaxed overflow-x-auto">
+{JSON.stringify({
+  jsonrpc: "2.0",
+  id: "call_mcp_0982",
+  method: "tools/call",
+  params: {
+    name: selectedMcpServer === "gsheets" 
+      ? "write_spreadsheet_cells" 
+      : selectedMcpServer === "figma" 
+      ? "get_design_context" 
+      : selectedMcpServer === "excel" 
+      ? "calculate_excel_matrix" 
+      : selectedMcpServer === "github" 
+      ? "create_pull_request_review" 
+      : "execute_sql_query",
+    arguments: selectedMcpServer === "gsheets" 
+      ? { spreadsheetId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms", range: "Sheet1!A1:E10" }
+      : selectedMcpServer === "figma"
+      ? { fileKey: "xL829aBvM9", nodeId: "14:892", targetFormat: "react-tailwind" }
+      : selectedMcpServer === "github"
+      ? { owner: "rahulEk12", repo: "custom-mcp-servers", pullNumber: 14, event: "APPROVE" }
+      : selectedMcpServer === "excel"
+      ? { workbook: "./analytics/models.xlsx", formula: "=XLOOKUP(A2, Master!A:A, Master!D:D)" }
+      : { sql: "INSERT INTO telemetry (agent, status) VALUES ('Qrek', 'OK');" }
+  }
+}, null, 2)}
+                            </pre>
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between text-[11px] text-emerald-400 font-bold mb-1">
+                              <span>// JSON-RPC 2.0 RESPONSE (Server &rarr; Client)</span>
+                              <span className="text-[10px] text-stone-500">result: 200 OK</span>
+                            </div>
+                            <pre className="bg-stone-900/60 p-3 rounded-xl border border-stone-800/80 text-[11px] text-emerald-300 leading-relaxed overflow-x-auto">
+{JSON.stringify({
+  jsonrpc: "2.0",
+  id: "call_mcp_0982",
+  result: {
+    status: "success",
+    timestamp: new Date().toISOString(),
+    server: selectedMcpServer,
+    payloadSize: "1.4 KB",
+    executionDurationMs: 248
+  }
+}, null, 2)}
+                            </pre>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* VIEW 3: LIVE OUTPUT ARTIFACT */}
+                      {mcpConsoleTab === "artifact" && (
+                        <div className="p-4 h-full overflow-y-auto font-mono text-xs bg-[#070709] scrollbar-thin scrollbar-thumb-stone-800 flex flex-col justify-center">
+                          {selectedMcpServer === "gsheets" || selectedMcpServer === "excel" ? (
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-bold text-white flex items-center gap-2">
+                                  <SheetsServerLogo className="w-4 h-4" />
+                                  Synced Spreadsheet Matrix Preview (Sheet1)
+                                </span>
+                                <span className="text-[10px] text-emerald-400 font-mono">146 Active Rows Synced</span>
+                              </div>
+                              <div className="border border-stone-800 rounded-xl overflow-hidden text-[11px]">
+                                <table className="w-full text-left">
+                                  <thead className="bg-emerald-950/40 text-emerald-400 border-b border-stone-800">
+                                    <tr>
+                                      <th className="p-2">Row</th>
+                                      <th className="p-2">Client Agent</th>
+                                      <th className="p-2">Protocol Action</th>
+                                      <th className="p-2">Status</th>
+                                      <th className="p-2">Latency</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="divide-y divide-stone-800/60 text-stone-300">
+                                    <tr className="bg-stone-900/30">
+                                      <td className="p-2 font-bold text-stone-500">#01</td>
+                                      <td className="p-2 text-cyan-400">{selectedAgent.toUpperCase()}</td>
+                                      <td className="p-2">Sync Workbook Cells</td>
+                                      <td className="p-2 text-emerald-400 font-bold">200 OK</td>
+                                      <td className="p-2 font-mono">248ms</td>
+                                    </tr>
+                                    <tr className="bg-stone-900/10">
+                                      <td className="p-2 font-bold text-stone-500">#02</td>
+                                      <td className="p-2 text-cyan-400">{selectedAgent.toUpperCase()}</td>
+                                      <td className="p-2">Format Formula Rules</td>
+                                      <td className="p-2 text-emerald-400 font-bold">200 OK</td>
+                                      <td className="p-2 font-mono">190ms</td>
+                                    </tr>
+                                    <tr className="bg-stone-900/30">
+                                      <td className="p-2 font-bold text-stone-500">#03</td>
+                                      <td className="p-2 text-cyan-400">{selectedAgent.toUpperCase()}</td>
+                                      <td className="p-2">Commit Batch Changes</td>
+                                      <td className="p-2 text-emerald-400 font-bold">200 OK</td>
+                                      <td className="p-2 font-mono">215ms</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          ) : selectedMcpServer === "figma" ? (
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-bold text-white flex items-center gap-2">
+                                  <FigmaServerLogo className="w-4 h-4" />
+                                  Generated Component Code (React + Tailwind)
+                                </span>
+                                <span className="text-[10px] text-purple-400 font-mono">Design-to-Code Ready</span>
+                              </div>
+                              <pre className="bg-stone-900/80 p-3 rounded-xl border border-stone-800 text-[11px] text-purple-300 overflow-x-auto leading-relaxed">
+{`export function OverviewCard({ title, metrics }: CardProps) {
+  return (
+    <div className="p-6 rounded-2xl bg-stone-950/80 border border-stone-800 backdrop-blur-md">
+      <h3 className="text-lg font-bold text-white">{title}</h3>
+      <div className="mt-4 flex items-center gap-3">
+        <span className="text-cyan-400 font-mono text-xl">{metrics}</span>
+      </div>
+    </div>
+  );
+}`}
+                              </pre>
+                            </div>
+                          ) : selectedMcpServer === "github" ? (
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-bold text-white flex items-center gap-2">
+                                  <GithubServerLogo className="w-4 h-4" />
+                                  Pull Request Review Output (#14)
+                                </span>
+                                <span className="text-[10px] text-emerald-400 font-bold font-mono">APPROVED</span>
+                              </div>
+                              <div className="bg-stone-900/60 p-4 rounded-xl border border-stone-800 space-y-2">
+                                <div className="flex items-center gap-2 text-xs">
+                                  <span className="text-emerald-400 font-bold">✓ Approved</span>
+                                  <span className="text-stone-400">by Rahul's AI Agent ({selectedAgent.toUpperCase()})</span>
+                                </div>
+                                <p className="text-stone-300 text-xs">
+                                  "Automated inspection complete: Verified Model Context Protocol schema definitions and OAuth connection tokens. Ready for merge into <code className="text-cyan-400">main</code> branch."
+                                </p>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-bold text-white flex items-center gap-2">
+                                  <SqliteServerLogo className="w-4 h-4" />
+                                  SQLite Telemetry Logs (12 Records)
+                                </span>
+                                <span className="text-[10px] text-blue-400 font-mono">Query: SELECT * FROM telemetry</span>
+                              </div>
+                              <div className="bg-stone-900/40 p-3 rounded-xl border border-stone-800 text-stone-300 text-xs font-mono space-y-1">
+                                <div>[ROW #1] id: 1048 | agent: {selectedAgent} | status: COMMITTED | latency: 248ms</div>
+                                <div>[ROW #2] id: 1049 | agent: {selectedAgent} | status: INDEXED   | latency: 190ms</div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                     </div>
                   </div>
 
@@ -1071,22 +1409,37 @@ export default function App() {
               {/* Grid of skills */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {filteredSkills.map((skill, idx) => (
-                  <div key={idx} className="bg-stone-900/40 border border-stone-800 hover:border-stone-700 transition p-4 rounded-xl space-y-3">
+                  <div 
+                    key={idx} 
+                    className="bg-stone-900/50 hover:bg-stone-900/80 border border-stone-800/80 hover:border-cyan-500/40 transition-all duration-300 p-4 rounded-xl space-y-3 group shadow-md"
+                  >
                     <div className="flex items-center justify-between">
-                      <div className="w-8 h-8 rounded-lg bg-stone-950 flex items-center justify-center text-cyan-400 border border-stone-800">
-                        {getIcon(skill.iconName)}
+                      {/* Real Tech / Brand Logo */}
+                      <div className="w-10 h-10 rounded-xl bg-stone-950 p-1.5 border border-stone-800 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:border-cyan-500/30 transition duration-300">
+                        {getSkillRealLogo(skill.name, skill.iconName)}
                       </div>
-                      <span className="text-[10px] font-mono uppercase bg-stone-800 text-stone-400 px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-mono uppercase bg-stone-800/90 text-stone-300 border border-stone-700/60 px-2 py-0.5 rounded font-semibold">
                         {skill.category}
                       </span>
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-white truncate">{skill.name}</h4>
-                      <div className="flex items-center gap-2 mt-1.5">
-                        <div className="flex-1 h-1.5 bg-stone-950 rounded-full overflow-hidden">
-                          <div className={`h-full rounded-full ${skill.category === "AI" ? "bg-cyan-500" : skill.category === "Design" ? "bg-purple-500" : skill.category === "Development" ? "bg-blue-500" : "bg-emerald-500"}`} style={{ width: `${skill.level}%` }}></div>
+                      <h4 className="text-xs font-bold text-white group-hover:text-cyan-300 transition duration-200 truncate">{skill.name}</h4>
+                      <div className="flex items-center gap-2 mt-2">
+                        <div className="flex-1 h-1.5 bg-stone-950 rounded-full overflow-hidden border border-stone-800/50">
+                          <div 
+                            className={`h-full rounded-full transition-all duration-500 ${
+                              skill.category === "AI" 
+                                ? "bg-gradient-to-r from-cyan-500 to-blue-500" 
+                                : skill.category === "Design" 
+                                ? "bg-gradient-to-r from-purple-500 to-pink-500" 
+                                : skill.category === "Development" 
+                                ? "bg-gradient-to-r from-blue-500 to-indigo-500" 
+                                : "bg-gradient-to-r from-emerald-500 to-teal-400"
+                            }`} 
+                            style={{ width: `${skill.level}%` }}
+                          />
                         </div>
-                        <span className="text-[10px] font-mono text-gray-400 font-bold">{skill.level}%</span>
+                        <span className="text-[10px] font-mono text-gray-300 font-bold">{skill.level}%</span>
                       </div>
                     </div>
                   </div>
